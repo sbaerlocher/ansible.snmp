@@ -39,6 +39,10 @@ None
 
 * Initial release
 
+### 1.1
+
+* add ArchLinux support
+
 ## Author
 
 * [Simon Bärlocher](https://sbaerlocher.ch)

@@ -1,0 +1,5 @@
+---
+# tasks file for sbaerlocher.snmp
+
+- name: install snmp
+  pacman: name=net-snmp state=present
