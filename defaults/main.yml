@@ -1,0 +1,6 @@
+---
+# defaults file for sbaerlocher.snmp
+
+snmp_user: snmp
+snmp_password: snmp_password
+snmp_encryption: snmp_encryption

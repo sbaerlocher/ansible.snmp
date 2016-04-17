@@ -1,0 +1,5 @@
+---
+# tasks file for sbaerlocher.snmp
+
+- name: install snmp
+  apt: name=snmpd state=present

@@ -1,0 +1,35 @@
+---
+# tasks file for sbaerlocher.snmp
+
+- name: add OS specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "vars/{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+    - "vars/{{ ansible_distribution }}.yml"
+    - "vars/{{ ansible_os_family }}.yml"
+    - "vars/defaults.yml"
+
+- name: add OS specific task
+  include: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+    - "defaults.yml"
+
+- name: stopped snmp
+  service:  name={{ snmp_service_name }} state=stopped
+
+- name: create snmp config
+  template: 
+    src: "snmpd.conf.j2"
+    dest: "/etc/snmp/{{ snmp_config_name }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify: 
+    - restart snmp
+    - enabled snmp
+
+- name: started snmp
+  service:  name={{ snmp_service_name }} state=started

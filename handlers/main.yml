@@ -1,0 +1,11 @@
+---
+# handlers file for sbaerlocher.snmp
+
+- name: restart snmp
+  service: name={{ snmp_service_name }} state=restarted
+
+- name: enabled snmp
+  service: name={{ snmp_service_name }} enabled=yes
+
+- name: start snmp
+  service: name={{ snmp_service_name }} state=started

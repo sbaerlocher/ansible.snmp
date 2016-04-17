@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+
+createUser {{ snmp_user }} SHA {{ snmp_password }} AES {{ snmp_encryption }}
+
+rouser {{ snmp_user }} priv
