@@ -1,5 +1,0 @@
----
-# tasks file for sbaerlocher.snmp
-
-- name: install snmp
-  yum: name=net-snmp state=present

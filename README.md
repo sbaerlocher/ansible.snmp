@@ -35,13 +35,18 @@ None
 
 ## Changelog
 
-### 1.0
+### 1.2
 
-* Initial release
+* add package manager for generic OS
+* cleanup
 
 ### 1.1
 
 * add ArchLinux support
+
+### 1.0
+
+* Initial release
 
 ## Author
 
