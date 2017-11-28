@@ -13,37 +13,42 @@
     - packages
 
 - name: install snmp
+  become: true
   package: name={{ snmp_package_name }} state=present
   tags:
     - packages
 
 - name: check create snmp config
-  template: 
+  become: true
+  template:
     src: "snmpd.conf.j2"
     dest: "/etc/snmp/{{ snmp_config_name }}.conf"
     owner: root
     group: root
     mode: 0644
   register: check_snmp
-  check_mode: yes
+  check_mode: true
   tags:
     - configuration
 
 - block:
-  - name: stopped snmp
-    service:  name={{ snmp_service_name }} state=stopped
-  - name: create snmp config
-    template: 
-      src: "snmpd.conf.j2"
-      dest: "/etc/snmp/{{ snmp_config_name }}.conf"
-      owner: root
-      group: root
-      mode: 0644
-    notify: 
-      - restart snmp
-      - enabled snmp
-  - name: started snmp
-    service:  name={{ snmp_service_name }} state=started  
+    - name: stopped snmp
+      become: true
+      service: name={{ snmp_service_name }} state=stopped
+    - name: create snmp config
+      become: true
+      template:
+        src: "snmpd.conf.j2"
+        dest: "/etc/snmp/{{ snmp_config_name }}.conf"
+        owner: root
+        group: root
+        mode: 0644
+      notify:
+        - restart snmp
+        - enabled snmp
+    - name: started snmp
+      become: true
+      service: name={{ snmp_service_name }} state=started
   when: check_snmp.changed
   tags:
     - configuration

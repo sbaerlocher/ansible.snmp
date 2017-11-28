@@ -1,4 +1,5 @@
 # Ansible Role: SNMP
+
 [![Build Status](https://travis-ci.org/sbaerlocher/ansible.snmp.svg?branch=master)](https://travis-ci.org/sbaerlocher/ansible.snmp)
 
 ## Description
@@ -7,8 +8,8 @@ Ansible role for installing and Configuration SNMP v3 on installs RHEL/CentOS or
 
 ## Installation
 
-```
-$ ansible-galaxy install sbaerlocher.snmp
+```bash
+ansible-galaxy install sbaerlocher.snmp
 ```
 
 ## Requirements
@@ -23,7 +24,7 @@ $ ansible-galaxy install sbaerlocher.snmp
 
 ## Dependencies
 
-None 
+None
 
 ## Example Playbook
 
@@ -51,11 +52,11 @@ None
 ## Author
 
 * [Simon Bärlocher](https://sbaerlocher.ch)
- 
+
 ## License
 
 This project is under the MIT License. See the [LICENSE](https://sbaerlo.ch/licence) file for the full license text.
 
 ## Copyright
 
-(c) 2016, Simon Bärlocher
+(c) 2017, Simon Bärlocher
