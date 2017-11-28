@@ -21,6 +21,8 @@ ansible-galaxy install sbaerlocher.snmp
 | snmp_user            | snmp            | SNMP User                                         |
 | snmp_password        | snmp_password   | SNMP Password                                     |
 | snmp_encryption      | snmp_encryption | SNMP Encryption                                   |
+| snmp_contact         |                 | Optional: System Contact                          |
+| snmp_location        |                 | Optional: System Location                         |
 
 ## Dependencies
 
@@ -35,6 +37,12 @@ None
 ```
 
 ## Changelog
+
+### 1.3
+
+* add become support
+* new role check
+* support for sysContact and sysLocation
 
 ### 1.2
 
