@@ -13,11 +13,13 @@
     - packages
 
 - name: install snmp
+  become: true
   package: name={{ snmp_package_name }} state=present
   tags:
     - packages
 
 - name: check create snmp config
+  become: true
   template: 
     src: "snmpd.conf.j2"
     dest: "/etc/snmp/{{ snmp_config_name }}.conf"
@@ -31,8 +33,10 @@
 
 - block:
   - name: stopped snmp
+    become: true
     service:  name={{ snmp_service_name }} state=stopped
   - name: create snmp config
+    become: true
     template: 
       src: "snmpd.conf.j2"
       dest: "/etc/snmp/{{ snmp_config_name }}.conf"
@@ -43,6 +47,7 @@
       - restart snmp
       - enabled snmp
   - name: started snmp
+    become: true
     service:  name={{ snmp_service_name }} state=started  
   when: check_snmp.changed
   tags:
