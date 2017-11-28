@@ -3,3 +3,10 @@
 createUser {{ snmp_user }} SHA {{ snmp_password }} AES {{ snmp_encryption }}
 
 rouser {{ snmp_user }} priv
+
+{% if snmp_location is defined %}
+sysLocation {{ snmp_location }}
+{% endif %}
+{% if snmp_contact is defined %}
+sysContact {{ snmp_contact }}
+{% endif %}

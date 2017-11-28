@@ -20,35 +20,35 @@
 
 - name: check create snmp config
   become: true
-  template: 
+  template:
     src: "snmpd.conf.j2"
     dest: "/etc/snmp/{{ snmp_config_name }}.conf"
     owner: root
     group: root
     mode: 0644
   register: check_snmp
-  check_mode: yes
+  check_mode: true
   tags:
     - configuration
 
 - block:
-  - name: stopped snmp
-    become: true
-    service:  name={{ snmp_service_name }} state=stopped
-  - name: create snmp config
-    become: true
-    template: 
-      src: "snmpd.conf.j2"
-      dest: "/etc/snmp/{{ snmp_config_name }}.conf"
-      owner: root
-      group: root
-      mode: 0644
-    notify: 
-      - restart snmp
-      - enabled snmp
-  - name: started snmp
-    become: true
-    service:  name={{ snmp_service_name }} state=started  
+    - name: stopped snmp
+      become: true
+      service: name={{ snmp_service_name }} state=stopped
+    - name: create snmp config
+      become: true
+      template:
+        src: "snmpd.conf.j2"
+        dest: "/etc/snmp/{{ snmp_config_name }}.conf"
+        owner: root
+        group: root
+        mode: 0644
+      notify:
+        - restart snmp
+        - enabled snmp
+    - name: started snmp
+      become: true
+      service: name={{ snmp_service_name }} state=started
   when: check_snmp.changed
   tags:
     - configuration

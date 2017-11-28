@@ -11,7 +11,7 @@
   become: true
   service:
     name: "{{ snmp_service_name }}"
-    enabled: yes
+    enabled: true
 
 - name: start snmp
   become: true
