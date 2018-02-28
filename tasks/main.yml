@@ -14,7 +14,8 @@
 
 - name: install snmp
   become: true
-  package: name={{ snmp_package_name }} state=present
+  package:
+    name: "{{ snmp_package_name }}"
   tags:
     - packages
 
@@ -32,9 +33,13 @@
     - configuration
 
 - block:
+
     - name: stopped snmp
       become: true
-      service: name={{ snmp_service_name }} state=stopped
+      service:
+        name: "{{ snmp_service_name }}"
+        state: stopped
+
     - name: create snmp config
       become: true
       template:
@@ -46,9 +51,13 @@
       notify:
         - restart snmp
         - enabled snmp
+
     - name: started snmp
       become: true
-      service: name={{ snmp_service_name }} state=started
+      service:
+        name: "{{ snmp_service_name }}"
+        state: started
+
   when: check_snmp.changed
   tags:
     - configuration
