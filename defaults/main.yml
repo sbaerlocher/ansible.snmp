@@ -2,8 +2,9 @@
 # defaults file for sbaerlocher.snmp
 
 snmp_user: snmp
-snmp_password: snmp_password
+snmp_access_adress: "0.0.0.0"
 snmp_encryption: snmp_encryption
+snmp_password: snmp_password
 
 snmp_agentadress_protocol:
   ipv4: udp
