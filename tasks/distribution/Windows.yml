@@ -1,0 +1,53 @@
+---
+# tasks file for sbaerlocher.snmp
+
+- name: "windows : install SNMP"
+  win_dsc:
+    resource_name: WindowsOptionalFeature
+    Name: SNMP
+    Ensure: Enable
+
+- name: "windows : setting SNMP"
+  win_regedit:
+    path: "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SNMP\\Parameters\\{{ item.path }}"
+    name: "{{ item.name }}"
+    type: "{{ item.type }}"
+    data: "{{ item.data }}"
+  with_items:
+    - path: PermittedManagers
+      name: "1"
+      type: string
+      data: "{{ snmp_monitoring }}"
+    - path: RFC1156Agent
+      name: sysContact
+      type: string
+      data: "{{ snmp_contact }}"
+    - path: RFC1156Agent
+      name: sysLocation
+      type: string
+      data: "{{ snmp_location }}"
+    - path: ValidCommunities
+      name: "{{ snmp_community }}"
+      type: dword
+      data: "4"
+
+- name: "windows : firewall rule to allow ICMP"
+  win_firewall_rule:
+    name: ICMP
+    action: allow
+    direction: in
+    protocol: ICMPv4
+    remoteip: "{{ snmp_monitoring }}"
+    state: present
+    enabled: true
+
+- name: "windows : firewall rule to allow SNMP-Service"
+  win_firewall_rule:
+    name: SNMP
+    action: allow
+    direction: in
+    protocol: UDP
+    localport: "161"
+    remoteip: "{{ snmp_monitoring }}"
+    state: present
+    enabled: true
