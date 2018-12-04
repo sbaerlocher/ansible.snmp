@@ -1,10 +1,10 @@
 # Ansible Role: SNMP
 
-[![Build Status](https://travis-ci.org/sbaerlocher/ansible.snmp.svg?branch=master)](https://travis-ci.org/sbaerlocher/ansible.snmp)
+[![Build Status](https://img.shields.io/travis-ci/sbaerlocher/ansible.snmp.svg?branch=master&style=popout-square)](https://travis-ci.org/sbaerlocher/ansible.snmp) [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=popout-square)](https://sbaerlo.ch/licence) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-snmp-blue.svg?style=popout-square)](https://galaxy.ansible.com/sbaerlocher/snmp) [![Ansible Role](https://img.shields.io/ansible/role/d/9234.svg?style=popout-square)](https://galaxy.ansible.com/sbaerlocher/snmp)
 
 ## Description
 
-Ansible role for installing and Configuration SNMP v3 on installs RHEL/CentOS or Debian/Ubuntu.
+Ansible role for installing and Configuration SNMP v3 on installs RHEL/CentOS or Debian/Ubuntu and SNMP v2 on Windows.
 
 ## Installation
 
@@ -40,6 +40,10 @@ None
 ```
 
 ## Changelog
+
+### 1.5
+
+* add Windows Support
 
 ### 1.4
 

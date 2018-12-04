@@ -1,0 +1,52 @@
+---
+# tasks file for sbaerlocher.snmp
+
+- name: "linux : install snmp"
+  become: true
+  package:
+    name: "{{ snmp_package_name }}"
+  tags:
+    - packages
+
+- name: "linux : check create snmp config"
+  become: true
+  template:
+    src: "snmpd.conf.j2"
+    dest: "/etc/snmp/{{ snmp_config_name }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  register: check_snmp
+  check_mode: true
+  tags:
+    - configuration
+
+- block:
+
+    - name: "linux : stopped snmp"
+      become: true
+      service:
+        name: "{{ snmp_service_name }}"
+        state: stopped
+
+    - name: "linux : create snmp config"
+      become: true
+      template:
+        src: "snmpd.conf.j2"
+        dest: "/etc/snmp/{{ snmp_config_name }}.conf"
+        owner: root
+        group: root
+        mode: 0644
+      notify:
+        - restart snmp
+        - enabled snmp
+
+    - name: "linux : started snmp"
+      become: true
+      service:
+        name: "{{ snmp_service_name }}"
+        state: started
+
+  when: check_snmp.changed
+  tags:
+    - configuration

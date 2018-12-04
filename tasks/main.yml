@@ -2,62 +2,37 @@
 # tasks file for sbaerlocher.snmp
 
 - name: add OS specific variables
-  include_vars: "{{ item }}"
+  include_vars: "{{ loop_vars }}"
   with_first_found:
-    - "vars/{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
-    - "vars/{{ ansible_distribution }}.yml"
-    - "vars/{{ ansible_os_family }}.yml"
-    - "vars/defaults.yml"
+    - files:
+        - "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+        - "{{ ansible_distribution }}.yml"
+        - "{{ ansible_os_family }}.yml"
+        - "{{ ansible_system }}.yml"
+        - "defaults.yml"
+      paths:
+        - "vars"
+  loop_control:
+    loop_var: loop_vars
   tags:
     - configuration
     - packages
 
-- name: install snmp
-  become: true
-  package:
-    name: "{{ snmp_package_name }}"
+- name: include distribution tasks
+  include_tasks: "{{ loop_distribution }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+        - "{{ ansible_distribution }}.yml"
+        - "{{ ansible_os_family }}.yml"
+        - "{{ ansible_system }}.yml"
+        - "defaults.yml"
+      paths:
+        - "distribution"
+  loop_control:
+    loop_var: loop_distribution
   tags:
+    - configuration
     - packages
-
-- name: check create snmp config
-  become: true
-  template:
-    src: "snmpd.conf.j2"
-    dest: "/etc/snmp/{{ snmp_config_name }}.conf"
-    owner: root
-    group: root
-    mode: 0644
-  register: check_snmp
-  check_mode: true
-  tags:
-    - configuration
-
-- block:
-
-    - name: stopped snmp
-      become: true
-      service:
-        name: "{{ snmp_service_name }}"
-        state: stopped
-
-    - name: create snmp config
-      become: true
-      template:
-        src: "snmpd.conf.j2"
-        dest: "/etc/snmp/{{ snmp_config_name }}.conf"
-        owner: root
-        group: root
-        mode: 0644
-      notify:
-        - restart snmp
-        - enabled snmp
-
-    - name: started snmp
-      become: true
-      service:
-        name: "{{ snmp_service_name }}"
-        state: started
-
-  when: check_snmp.changed
-  tags:
-    - configuration
