@@ -1,6 +1,6 @@
 # Ansible Role: SNMP
 
-[![Build Status](https://travis-ci.org/sbaerlocher/ansible.snmp.svg?branch=master&style=popout-square)](https://travis-ci.org/sbaerlocher/ansible.snmp) [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=popout-square)](https://sbaerlo.ch/licence) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-snmp-blue.svg?style=popout-square)](https://galaxy.ansible.com/sbaerlocher/snmp) [![Ansible Role](https://img.shields.io/ansible/role/d/9234.svg?style=popout-square)](https://galaxy.ansible.com/sbaerlocher/snmp)
+[![Build Status](https://img.shields.io/travis-ci/sbaerlocher/ansible.snmp.svg?branch=master&style=popout-square)](https://travis-ci.org/sbaerlocher/ansible.snmp) [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=popout-square)](https://sbaerlo.ch/licence) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-snmp-blue.svg?style=popout-square)](https://galaxy.ansible.com/sbaerlocher/snmp) [![Ansible Role](https://img.shields.io/ansible/role/d/9234.svg?style=popout-square)](https://galaxy.ansible.com/sbaerlocher/snmp)
 
 ## Description
 
