@@ -2,9 +2,10 @@
 
 galaxy_info:
   author: "Simon Bärlocher"
-  description: Ansible role for installing and Configuration SNMP v3.
+  company: "sbaerlo.ch/er"
+  description: "Ansible role for installing and Configuration SNMP v3 on Linux and SNMP on Windows."
   license: MIT
-  min_ansible_version: 2
+  min_ansible_version: 2.7
   platforms:
     - name: EL
       versions:
@@ -16,6 +17,9 @@ galaxy_info:
       versions:
         - all
     - name: Archlinux
+      versions:
+        - all
+    - name: Windows
       versions:
         - all
 
