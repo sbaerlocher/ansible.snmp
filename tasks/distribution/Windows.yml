@@ -17,7 +17,7 @@
     - path: PermittedManagers
       name: "1"
       type: string
-      data: "{{ snmp_monitoring }}"
+      data: "{{ snmp_access_adress }}"
     - path: RFC1156Agent
       name: sysContact
       type: string
