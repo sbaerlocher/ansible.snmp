@@ -21,6 +21,12 @@
   tags:
     - configuration
 
+- name: "linux : download proxmox extend"
+  get_url:
+    url: "https://raw.githubusercontent.com/librenms/librenms-agent/master/agent-local/proxmox"
+    dest: /usr/local/bin/proxmox
+  when: '"pve" in ansible_kernel'
+
 - block:
 
     - name: "linux : stopped snmp"

@@ -17,3 +17,7 @@ sysName {{ ansible_fqdn }}
 {% if snmp_contact is defined %}
 sysContact {{ snmp_contact }}
 {% endif %}
+
+{% if "pve" in ansible_kernel %}
+extend proxmox /usr/local/bin/proxmox
+{% endif %}
