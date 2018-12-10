@@ -9,6 +9,7 @@
     - packages
 
 - name: 'linux : create snmp extension directory'
+  become: true
   file:
     path: '{{ snmp_extension_scripts }}'
     state: directory
