@@ -5,6 +5,7 @@ snmp_user: snmp
 snmp_access_adress: "0.0.0.0"
 snmp_encryption: snmp_encryption
 snmp_password: snmp_password
+snmp_extension_scripts: /usr/local/lib/snmpd
 
 snmp_agentadress_protocol:
   ipv4: udp
