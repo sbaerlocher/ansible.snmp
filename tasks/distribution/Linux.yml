@@ -23,6 +23,7 @@
     - configuration
 
 - name: 'linux : install snmp extension distro'
+  become: true
   get_url:
     url: 'https://raw.githubusercontent.com/librenms/librenms-agent/master/snmp/distro'
     dest: '{{ snmp_extension_scripts + "/" }}'
@@ -35,6 +36,13 @@
     selevel: s0
   tags:
     - configuration
+  
+- name: 'linux : install snmp extension proxmox'
+  become: true
+  get_url:
+    url: 'https://raw.githubusercontent.com/librenms/librenms-agent/master/agent-local/proxmox'
+    dest: '{{ snmp_extension_scripts + "/" }}'
+  when: '"pve" in ansible_kernel'
 
 - name: 'linux : check create snmp config'
   become: true
@@ -52,12 +60,6 @@
   check_mode: true
   tags:
     - configuration
-
-- name: "linux : download proxmox extend"
-  get_url:
-    url: "https://raw.githubusercontent.com/librenms/librenms-agent/master/agent-local/proxmox"
-    dest: /usr/local/bin/proxmox
-  when: '"pve" in ansible_kernel'
 
 - block:
 
