@@ -18,6 +18,7 @@ sysName {{ ansible_fqdn }}
 sysContact {{ snmp_contact }}
 {% endif %}
 
+extend .1.3.6.1.4.1.2021.7890.1 distro {{ snmp_extension_scripts }}/distro
 {% if "pve" in ansible_kernel %}
-extend proxmox /usr/local/bin/proxmox
+extend proxmox {{ snmp_extension_scripts }}/proxmox
 {% endif %}
