@@ -41,6 +41,12 @@ None
 
 ## Changelog
 
+### 1.6.0
+
+* add distro support
+* syntax cleaned up
+* proxmox support
+
 ### 1.5
 
 * add Windows Support
