@@ -71,8 +71,8 @@
     serole: object_r
     setype: etc_t
     selevel: s0
-    notify:
-      - restart snmp
+  notify:
+    - restart snmp
 
 - name: 'linux : check create snmp config'
   become: true
