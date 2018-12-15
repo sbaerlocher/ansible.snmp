@@ -72,7 +72,7 @@
     setype: etc_t
     selevel: s0
   notify:
-      - restart snmp
+    - restart snmp
 
 - name: 'linux : check create snmp config'
   become: true
