@@ -1,0 +1,7 @@
+# {{ ansible_managed }}
+
+# snmpd command line options
+# '-f' is implicitly added by snmpd systemd unit file
+{% if snmp_logging_options|length %}
+OPTIONS="{{ snmp_logging_options }}"
+{% endif %}

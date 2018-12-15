@@ -1,6 +1,10 @@
 ---
 # vars file for sbaerlocher.snmp
 
+snmp_packages:
+  - net-snmp
+  - net-snmp-utils
+
+snmp_config: /etc/snmp/snmpd.conf
+snmp_daemon_config: /etc/sysconfig/snmpd
 snmp_service_name: snmpd
-snmp_package_name: net-snmp
-snmp_config_name: snmpd

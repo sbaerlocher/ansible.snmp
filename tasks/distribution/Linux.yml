@@ -4,7 +4,10 @@
 - name: 'linux : install snmp'
   become: true
   package:
-    name: '{{ snmp_package_name }}'
+    name: '{{ item }}'
+  with_items:
+    - '{{ snmp_packages }}'
+    - '{{ snmp_additional_packages }}'
   tags:
     - packages
 
@@ -23,10 +26,10 @@
   tags:
     - configuration
 
-- name: 'linux : install snmp extension distro'
+- name: 'linux : install snmp extension'
   become: true
   get_url:
-    url: 'https://raw.githubusercontent.com/librenms/librenms-agent/master/snmp/distro'
+    url: '{{ item.url }}'
     dest: '{{ snmp_extension_scripts + "/" }}'
     owner: root
     group: root
@@ -35,6 +38,8 @@
     serole: object_r
     setype: lib_t
     selevel: s0
+  with_items:
+    - "{{ snmp_extension_list }}"
   tags:
     - configuration
 
@@ -43,13 +48,37 @@
   get_url:
     url: 'https://raw.githubusercontent.com/librenms/librenms-agent/master/agent-local/proxmox'
     dest: '{{ snmp_extension_scripts + "/" }}'
+    owner: root
+    group: root
+    mode: 0755
+    seuser: system_u
+    serole: object_r
+    setype: lib_t
+    selevel: s0
   when: '"pve" in ansible_kernel'
+  tags:
+    - configuration
+
+- name: 'linux : configure snmpd daemon'
+  become: true
+  template:
+    src: 'default/snmpd.{{ ansible_os_family }}.j2'
+    dest: '{{ snmp_daemon_config }}'
+    owner: root
+    group: root
+    mode: 0644
+    seuser: system_u
+    serole: object_r
+    setype: etc_t
+    selevel: s0
+    notify:
+      - restart snmp
 
 - name: 'linux : check create snmp config'
   become: true
   template:
-    src: 'snmpd.conf.j2'
-    dest: '/etc/snmp/{{ snmp_config_name }}.conf'
+    src: 'snmp/snmpd.conf.j2'
+    dest: '{{ snmp_config }}'
     owner: root
     group: root
     mode: 0600
@@ -73,8 +102,8 @@
     - name: 'linux : create snmp config'
       become: true
       template:
-        src: 'snmpd.conf.j2'
-        dest: '/etc/snmp/{{ snmp_config_name }}.conf'
+        src: 'snmp/snmpd.conf.j2'
+        dest: '{{ snmp_config }}'
         owner: root
         group: root
         mode: 0600

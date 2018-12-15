@@ -18,3 +18,8 @@
   service:
     name: "{{ snmp_service_name }}"
     state: started
+
+- name: restart win snmp
+  win_service:
+    name: SNMP
+    state: restarted

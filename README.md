@@ -41,6 +41,11 @@ None
 
 ## Changelog
 
+### 1.7.0
+
+* add osupdate support
+* syntax cleaned up
+
 ### 1.6.0
 
 * add distro support

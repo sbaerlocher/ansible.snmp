@@ -1,11 +1,12 @@
 ---
 # defaults file for sbaerlocher.snmp
 
-snmp_user: snmp
-snmp_access_adress: "0.0.0.0"
+snmp_additional_packages: []
 snmp_encryption: snmp_encryption
+snmp_extension_scripts: '/usr/local/lib/snmpd'
+snmp_logging_options: ''
 snmp_password: snmp_password
-snmp_extension_scripts: /usr/local/lib/snmpd
+snmp_user: snmp
 
 snmp_agentadress_protocol:
   ipv4: udp
@@ -16,3 +17,9 @@ snmp_agentadress_adress:
 snmp_agentadress_port:
   ipv4: 161
   ipv6: 161
+
+snmp_extension_list:
+  - url: 'https://raw.githubusercontent.com/librenms/librenms-agent/master/snmp/distro'
+    extend: '.1.3.6.1.4.1.2021.7890.1 distro {{ snmp_extension_scripts }}/distro'
+  - url: 'https://raw.githubusercontent.com/librenms/librenms-agent/master/snmp/osupdate'
+    extend: 'osupdate {{ snmp_extension_scripts }}/osupdate'
