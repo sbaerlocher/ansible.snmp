@@ -5,7 +5,7 @@ snmp_packages:
   - snmp
   - snmpd
 
-snmp_config: '/etc/snmp/snmp.conf'
+snmp_config: '/etc/snmp/snmpd.conf'
 snmp_daemon_config: '/etc/default/snmpd'
 snmp_deamon_group: 'Debian-snmp'
 snmp_deamon_user: 'Debian-snmp'
