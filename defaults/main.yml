@@ -5,6 +5,8 @@ snmp_additional_packages: []
 snmp_encryption: snmp_encryption
 snmp_extension_scripts: '/usr/local/lib/snmpd'
 snmp_logging_options: ''
+snmp_access_adress: 0.0.0.0
+snmp_monitoring_server: 0.0.0.0
 snmp_password: snmp_password
 snmp_user: snmp
 
