@@ -3,7 +3,7 @@
 galaxy_info:
   author: 'Simon Bärlocher'
   company: 'sbaerlo.ch/er'
-  description: 'Installing and Configuration SNMP v3 on Linux  and SNMP v2 on Windows.'
+  description: 'Installing and Configuration SNMP v3 on Linux and SNMP v2 on Windows.'
   license: MIT
   min_ansible_version: 2.7
   platforms:
