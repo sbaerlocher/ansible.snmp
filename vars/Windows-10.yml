@@ -1,0 +1,4 @@
+---
+# vars file for sbaerlocher.snmp
+
+snmp_resource_name: WindowsOptionalFeature
