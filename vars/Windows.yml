@@ -2,3 +2,5 @@
 # vars file for sbaerlocher.snmp
 
 snmp_resource_name: WindowsFeature
+snmp_name: "SNMP-Service"
+snmp_present: "Present"
