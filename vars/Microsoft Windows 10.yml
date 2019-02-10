@@ -1,0 +1,6 @@
+---
+# vars file for sbaerlocher.snmp
+
+snmp_resource_name: WindowsOptionalFeature
+snmp_name: SNMP
+snmp_present: Enable

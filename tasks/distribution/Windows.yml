@@ -4,8 +4,8 @@
 - name: 'windows : install SNMP'
   win_dsc:
     resource_name: "{{ snmp_resource_name }}"
-    Name: SNMP
-    Ensure: Enable
+    Name: "{{ snmp_name }}"
+    Ensure: "{{ snmp_present }}"
 
 - name: 'windows : setting SNMP'
   win_regedit:
