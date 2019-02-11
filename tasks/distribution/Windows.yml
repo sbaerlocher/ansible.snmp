@@ -33,13 +33,18 @@
   notify:
     - restart win snmp
 
+- name: 'windows : set remote IP-Adresss'
+  set_fact:
+    snmp_remoteip: "{{ lookup('dig', snmp_monitoring_server )) }}"
+  when: not snmp_monitoring_server | ipaddr
+
 - name: 'windows : firewall rule to allow ICMP'
   win_firewall_rule:
     name: ICMP
     action: allow
     direction: in
     protocol: ICMPv4
-    remoteip: '{{ snmp_monitoring_server | default() }}'
+    remoteip: '{{ snmp_remoteip | default( snmp_monitoring_server ) }}'
     state: present
     enabled: true
 
@@ -50,6 +55,6 @@
     direction: in
     protocol: UDP
     localport: '161'
-    remoteip: '{{ snmp_monitoring_server | default() }}'
+    remoteip: '{{ snmp_remoteip | default( snmp_monitoring_server ) }}'
     state: present
     enabled: true
