@@ -35,7 +35,7 @@
 
 - name: 'windows : set remote IP-Adresss'
   set_fact:
-    snmp_remoteip: "{{ lookup('dig', snmp_monitoring_server )) }}"
+    snmp_remoteip: "{{ lookup('dig', snmp_monitoring_server ) }}"
   when: not snmp_monitoring_server | ipaddr
 
 - name: 'windows : firewall rule to allow ICMP'
