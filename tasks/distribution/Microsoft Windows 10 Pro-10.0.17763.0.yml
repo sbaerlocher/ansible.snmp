@@ -1,0 +1,57 @@
+---
+# tasks file for sbaerlocher.snmp
+
+- name: 'windows : install SNMP'
+  win_shell: Add-WindowsCapability -Online -Name 'SNMP.Client~~~~0.0.1.0'
+
+- name: 'windows : setting SNMP'
+  win_regedit:
+    path: 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SNMP\\Parameters\\{{ item.path }}'
+    name: '{{ item.name }}'
+    type: '{{ item.type }}'
+    data: '{{ item.data }}'
+  with_items:
+    - path: PermittedManagers
+      name: '1'
+      type: string
+      data: '{{ snmp_access_adress | default() }}'
+    - path: RFC1156Agent
+      name: sysContact
+      type: string
+      data: '{{ snmp_contact | default() }}'
+    - path: RFC1156Agent
+      name: sysLocation
+      type: string
+      data: '{{ snmp_location | default() }}'
+    - path: ValidCommunities
+      name: '{{ snmp_community | default() }}'
+      type: dword
+      data: '4'
+  notify:
+    - restart win snmp
+
+- name: 'windows : set remote IP-Adresss'
+  set_fact:
+    snmp_remoteip: "{{ lookup('dig', snmp_monitoring_server ) }}"
+  when: not snmp_monitoring_server | ipaddr
+
+- name: 'windows : firewall rule to allow ICMP'
+  win_firewall_rule:
+    name: ICMP
+    action: allow
+    direction: in
+    protocol: ICMPv4
+    remoteip: '{{ snmp_remoteip | default( snmp_monitoring_server ) }}'
+    state: present
+    enabled: true
+
+- name: 'windows : firewall rule to allow SNMP-Service'
+  win_firewall_rule:
+    name: SNMP
+    action: allow
+    direction: in
+    protocol: UDP
+    localport: '161'
+    remoteip: '{{ snmp_remoteip | default( snmp_monitoring_server ) }}'
+    state: present
+    enabled: true
