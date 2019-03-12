@@ -41,6 +41,10 @@ None
 
 ## Changelog
 
+### 1.7.1
+
+* add support for Windows 1809
+
 ### 1.7.0
 
 * add osupdate support
