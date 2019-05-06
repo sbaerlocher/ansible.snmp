@@ -6,9 +6,16 @@
 - name: 'windows : Specify settings for optional component installation and component repair'
   win_regedit:
     path: 'HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Servicing'
-    name: RepairContentServerSource
-    type: dword
-    data: '2'
+    name: '{{ item.name }}'
+    type: '{{ item.type }}'
+    data: '{{ item.data }}'
+  with_items:
+    - name: 'RepairContentServerSource'
+      type: 'dword'
+      data: '2'
+    - name: 'LocalSourcePath'
+      type: 'expandstring'
+      data: ''
 
 - name: 'windows : install SNMP'
   win_shell: Add-WindowsCapability -Online -Name 'SNMP.Client~~~~0.0.1.0'
