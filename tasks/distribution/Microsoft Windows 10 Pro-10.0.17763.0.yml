@@ -1,6 +1,15 @@
 ---
 # tasks file for sbaerlocher.snmp
 
+# https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.Servicing::Servicing
+# https://www.zueschen.eu/windows-10-version-1809-rsat-tools-installation-schlaegt-fehl/
+- name: 'windows : Specify settings for optional component installation and component repair'
+  win_regedit:
+    path: 'HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Servicing'
+    name: RepairContentServerSource
+    type: dword
+    data: '2'
+
 - name: 'windows : install SNMP'
   win_shell: Add-WindowsCapability -Online -Name 'SNMP.Client~~~~0.0.1.0'
 
