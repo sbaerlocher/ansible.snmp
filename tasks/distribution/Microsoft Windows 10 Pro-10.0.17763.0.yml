@@ -9,6 +9,7 @@
     name: '{{ item.name }}'
     type: '{{ item.type }}'
     data: '{{ item.data }}'
+    state: absent
   with_items:
     - name: 'RepairContentServerSource'
       type: 'dword'
@@ -17,8 +18,8 @@
       type: 'expandstring'
       data: ''
 
-- name: 'windows : install SNMP'
-  win_shell: Add-WindowsCapability -Online -Name 'SNMP.Client~~~~0.0.1.0'
+# - name: 'windows : install SNMP'
+#   win_shell: Add-WindowsCapability -Online -Name 'SNMP.Client~~~~0.0.1.0'
 
 - name: 'windows : setting SNMP'
   win_regedit:
@@ -43,8 +44,8 @@
       name: '{{ snmp_community | default() }}'
       type: dword
       data: '4'
-  notify:
-    - restart win snmp
+#  notify:
+#    - restart win snmp
 
 - name: 'windows : set remote IP-Adresss'
   set_fact:
