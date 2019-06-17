@@ -24,3 +24,23 @@ extend {{ item.extend }}
 {% if "pve" in ansible_kernel %}
 extend proxmox /usr/bin/sudo {{ snmp_extension_scripts }}/proxmox
 {% endif %}
+
+{% if "Cumulus Linux" in ansible_distribution %}
+agentxperms 777 777 snmp snmp
+agentxsocket /var/agentx/master
+createUser _snmptrapusernameX
+iquerySecName _snmptrapusernameX
+master agentx
+monitor -r 60 -o laNames -o laErrMessage "laTable" laErrorFlag != 0
+pass -p 10 1.3.6.1.2.1.1.1 /usr/share/snmp/sysDescr_pass.py
+pass_persist 1.2.840.10006.300.43 /usr/share/snmp/ieee8023_lag_pp.py
+pass_persist 1.3.6.1.2.1.17 /usr/share/snmp/bridge_pp.py
+pass_persist 1.3.6.1.2.1.31.1.1.1.18 /usr/share/snmp/snmpifAlias_pp.py
+pass_persist 1.3.6.1.2.1.47 /usr/share/snmp/entity_pp.py
+pass_persist 1.3.6.1.2.1.99 /usr/share/snmp/entity_sensor_pp.py
+pass_persist 1.3.6.1.4.1.40310.1 /usr/share/snmp/resq_pp.py
+pass_persist 1.3.6.1.4.1.40310.2 /usr/share/snmp/cl_drop_cntrs_pp.py
+rouser _snmptrapusernameX
+sysObjectID 1.3.6.1.4.1.40310
+sysServices 72
+{% endif %}

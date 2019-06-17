@@ -19,6 +19,9 @@ galaxy_info:
     - name: Windows
       versions:
         - all
+    - name: Cumulus
+      versions:
+        - all
 
   galaxy_tags:
     - system
