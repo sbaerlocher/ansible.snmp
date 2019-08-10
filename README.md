@@ -4,7 +4,7 @@
 
 ## Description
 
-Ansible role for installing and Configuration SNMP v3 on installs RHEL/CentOS or Debian/Ubuntu and SNMP v2 on Windows.
+Ansible role for installing and Configuration SNMP v3 on installs RHEL/CentOS, Debian/Ubuntu, or Cumulus Linux and SNMP v2 on Windows.
 
 ## Installation
 
@@ -40,6 +40,10 @@ None
 ```
 
 ## Changelog
+
+### 1.8
+
+* add Cumulus Linux support
 
 ### 1.7.1
 
