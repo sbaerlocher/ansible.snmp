@@ -31,7 +31,7 @@
     - path: PermittedManagers
       name: '1'
       type: string
-      data: '{{ snmp_access_address | default() }}'
+      data: '{{ snmp_access_adress | default() }}'
     - path: RFC1156Agent
       name: sysContact
       type: string
@@ -47,7 +47,7 @@
 #  notify:
 #    - restart win snmp
 
-- name: 'windows : set remote IP-Address'
+- name: 'windows : set remote IP-Adresss'
   set_fact:
     snmp_remoteip: "{{ lookup('dig', snmp_monitoring_server ) }}"
   when: not snmp_monitoring_server | ipaddr

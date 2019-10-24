@@ -5,18 +5,18 @@ snmp_additional_packages: []
 snmp_encryption: snmp_encryption
 snmp_extension_scripts: '/usr/local/lib/snmpd'
 snmp_logging_options: ''
-snmp_access_address: 0.0.0.0
+snmp_access_adress: 0.0.0.0
 snmp_monitoring_server: 0.0.0.0
 snmp_password: snmp_password
 snmp_user: snmp
 
-snmp_agentaddress_protocol:
+snmp_agentadress_protocol:
   ipv4: udp
   ipv6: udp6
-snmp_agentaddress_address:
+snmp_agentadress_adress:
   ipv4: "{{ ansible_default_ipv4.address if ansible_default_ipv4.address is defined else '127.0.0.1' }}"
   ipv6: "{{ ansible_default_ipv6.address if ansible_default_ipv6.address is defined else '::1' }}"
-snmp_agentaddress_port:
+snmp_agentadress_port:
   ipv4: 161
   ipv6: 161
 
