@@ -1,25 +1,12 @@
 ---
 # tasks file for sbaerlocher.snmp
 
-# https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.Servicing::Servicing
-# https://www.zueschen.eu/windows-10-version-1809-rsat-tools-installation-schlaegt-fehl/
-- name: 'windows : Specify settings for optional component installation and component repair'
-  win_regedit:
-    path: 'HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Servicing'
-    name: '{{ item.name }}'
-    type: '{{ item.type }}'
-    data: '{{ item.data }}'
-    state: absent
-  with_items:
-    - name: 'RepairContentServerSource'
-      type: 'dword'
-      data: '2'
-    - name: 'LocalSourcePath'
-      type: 'expandstring'
-      data: ''
-
-# - name: 'windows : install SNMP'
-#   win_shell: Add-WindowsCapability -Online -Name 'SNMP.Client~~~~0.0.1.0'
+- name: 'Windows : Install SNMP Client'
+  become_method: runas
+  become_user: System
+  become: yes
+  sbaerlocher.windows.win_capability:
+    name: 'SNMP.Client~~~~0.0.1.0'
 
 - name: 'windows : setting SNMP'
   win_regedit:
@@ -44,8 +31,8 @@
       name: '{{ snmp_community | default() }}'
       type: dword
       data: '4'
-#  notify:
-#    - restart win snmp
+  notify:
+    - restart win snmp
 
 - name: 'windows : set remote IP-Adresss'
   set_fact:
