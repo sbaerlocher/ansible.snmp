@@ -9,7 +9,7 @@
 
 - name: 'windows : setting SNMP'
   win_regedit:
-    path: 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SNMP\\Parameters\\{{ item.path }}'
+    path: 'HKLM:\SYSTEM\CurrentControlSet\Services\SNMP\Parameters\{{ item.path }}'
     name: '{{ item.name }}'
     type: '{{ item.type }}'
     data: '{{ item.data }}'
