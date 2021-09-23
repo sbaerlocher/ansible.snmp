@@ -10,4 +10,4 @@ export MIBS=
 SNMPDRUN=yes
 
 # snmpd options (use syslog, close stdin/out/err).
-SNMPDOPTS='{{ snmp_logging_options }} -Lf /dev/null -u {{ snmp_deamon_group }} -g {{ snmp_deamon_user }} -I -smux,mteTrigger,mteTriggerConf -p /run/snmpd.pid'
+SNMPDOPTS='{{ snmp_logging_options }} -Lf /dev/null -u {{ snmp_deamon_user }} -g {{ snmp_deamon_group }} -I -smux,mteTrigger,mteTriggerConf -p /run/snmpd.pid'
