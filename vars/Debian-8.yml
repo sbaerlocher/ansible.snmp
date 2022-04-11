@@ -1,0 +1,13 @@
+---
+# vars file for sbaerlocher.snmp
+
+snmp_packages:
+  - snmp
+  - snmpd
+
+snmp_config: '/etc/snmp/snmpd.conf'
+snmp_daemon_config: '/etc/default/snmpd'
+snmp_deamon_group: 'snmp'
+snmp_deamon_user: 'snmp'
+snmp_logging_options: '-Lsd'
+snmp_service_name: 'snmpd'
