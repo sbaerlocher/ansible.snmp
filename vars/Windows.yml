@@ -4,3 +4,4 @@
 snmp_resource_name: WindowsFeature
 snmp_name: "SNMP-Service"
 snmp_present: "Present"
+snmp_dsc_name: "DSC-Service"

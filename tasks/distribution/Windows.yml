@@ -1,15 +1,33 @@
 ---
 # tasks file for sbaerlocher.snmp
 
-- name: 'windows : install SNMP'
+- name: Check DSC Feature state
+  community.windows.win_feature_info:
+    name: "{{  snmp_dsc_name }}"
+  register: dsc_feature_info
+
+- name: Set fact DSC install state
+  set_fact:
+    dsc_install_status: "{{ dsc_feature_info | json_query(dsc_state_query) | bool }}"
+  vars:
+    dsc_state_query: "[*].installed"
+
+- name: 'windows : install SNMP with DSC'
   win_dsc:
     resource_name: "{{ snmp_resource_name }}"
     Name: "{{ snmp_name }}"
     Ensure: "{{ snmp_present }}"
+  when: ansible_powershell_version >= 5 and dsc_install_status
+
+- name: 'windows : install SNMP without DSC'
+  win_feature:
+    name: "{{ snmp_name }}"
+    state: "{{ snmp_present }}"
+  when: ansible_powershell_version <= 5 and not dsc_install_status
 
 - name: 'windows : setting SNMP'
   win_regedit:
-    path: 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SNMP\\Parameters\\{{ item.path }}'
+    path: 'HKLM:\SYSTEM\CurrentControlSet\Services\SNMP\Parameters\{{ item.path }}'
     name: '{{ item.name }}'
     type: '{{ item.type }}'
     data: '{{ item.data }}'
@@ -17,7 +35,7 @@
     - path: PermittedManagers
       name: '1'
       type: string
-      data: '{{ snmp_access_adress | default() }}'
+      data: '{{ snmp_access_address | default() }}'
     - path: RFC1156Agent
       name: sysContact
       type: string
@@ -33,7 +51,7 @@
   notify:
     - restart win snmp
 
-- name: 'windows : set remote IP-Adresss'
+- name: 'windows : set remote IP-Address'
   set_fact:
     snmp_remoteip: "{{ lookup('dig', snmp_monitoring_server ) }}"
   when: not snmp_monitoring_server | ipaddr
