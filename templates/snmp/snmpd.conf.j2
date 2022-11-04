@@ -4,10 +4,10 @@ createUser {{ snmp_user }} SHA {{ snmp_password }} AES {{ snmp_encryption }}
 
 rouser {{ snmp_user }} priv
 {% if ansible_default_ipv4.address is defined %}
-agentAddress  {{ snmp_agentadress_protocol.ipv4 }}:{{ snmp_agentadress_adress.ipv4 }}:{{ snmp_agentadress_port.ipv4 }}
+agentAddress  {{ snmp_agentaddress_protocol.ipv4 }}:{{ snmp_agentaddress_adress.ipv4 }}:{{ snmp_agentaddress_port.ipv4 }}
 {% endif %}
 {% if ansible_default_ipv6.address is defined %}
-agentAddress {{ snmp_agentadress_protocol.ipv6 }}:{{ snmp_agentadress_adress.ipv6 }}:{{ snmp_agentadress_port.ipv6 }}
+agentAddress {{ snmp_agentaddress_protocol.ipv6 }}:{{ snmp_agentaddress_adress.ipv6 }}:{{ snmp_agentaddress_port.ipv6 }}
 {% endif %}
 
 {% if snmp_location is defined %}
