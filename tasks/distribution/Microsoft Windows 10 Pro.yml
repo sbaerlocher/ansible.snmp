@@ -34,7 +34,7 @@
   notify:
     - restart win snmp
 
-- name: 'windows : set remote IP-Adresss'
+- name: 'windows : set remote IP-Address'
   set_fact:
     snmp_remoteip: "{{ lookup('dig', snmp_monitoring_server ) }}"
   when: not snmp_monitoring_server | ipaddr

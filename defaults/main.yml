@@ -13,7 +13,7 @@ snmp_user: snmp
 snmp_agentaddress_protocol:
   ipv4: udp
   ipv6: udp6
-snmp_agentaddress_adress:
+snmp_agentaddress_address:
   ipv4: "{{ ansible_default_ipv4.address if ansible_default_ipv4.address is defined else '127.0.0.1' }}"
   ipv6: "{{ ansible_default_ipv6.address if ansible_default_ipv6.address is defined else '::1' }}"
 snmp_agentaddress_port:
